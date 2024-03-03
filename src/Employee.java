@@ -2,28 +2,23 @@ import java.util.Objects;
 
 public class Employee {
 
+
     private int department; // Отдел
     private String name; // Имя
     private String familName; // Фамилия
     private String surname; // Отчество
     private int salary; // Зарплата
-    public static int id = 0; // id - счетчик
-    public Employee (int department, String name, String familName, String surname, int salary){
+    private int id; // id - счетчик
+    private static int total;
+    public Employee (int department, String familName, String name, String surname, int salary){
         this.department = department; // Отдел
         this.name = name; // Имя
         this.familName = familName; // Фамилия
         this.surname = surname; // Отчество
         this.salary = salary; // Зарплата
-
-
+        this.id = ++total; // di
 
     }
-    public static int sumId(){
-        id++;
-
-        return id;
-    }
-
 
     public int getDepartment() {
         return department;
@@ -55,7 +50,7 @@ public class Employee {
     }
 
     public static int getId() {
-        return id;
+        return total;
     }
 
     @Override
@@ -70,18 +65,10 @@ public class Employee {
     public int hashCode() {
         return Objects.hash(department, name, familName, surname, salary);
     }
-    public void printAllEmployees(){
-        for (int i = 0; i < id; i++){
-            System.out.println(getName());
-        }
-    }
-
-
-
 
     @Override
     public String toString() {
-        return "\n" + "Номер отдела: " + department + "\n" + "ФИО: " +  familName + " "
+        return "\n" + "id: " + id + "\n" + "Номер отдела: " + department + "\n" + "ФИО: " +  familName + " "
                 + name + " " + surname + "\n" + "Зарплата: " + salary;
     }
 
