@@ -49,8 +49,8 @@ public class Employee {
         this.salary = salary;
     }
 
-    public static int getId() {
-        return total;
+    public int getId() {
+        return id;
     }
 
     @Override
