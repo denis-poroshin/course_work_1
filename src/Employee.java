@@ -9,7 +9,7 @@ public class Employee {
     private String surname; // Отчество
     private int salary; // Зарплата
     private int id; // id - счетчик
-    private static int total;
+    public static int total;
     public Employee (int department, String familName, String name, String surname, int salary){
         this.department = department; // Отдел
         this.name = name; // Имя
