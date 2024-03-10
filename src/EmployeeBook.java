@@ -5,13 +5,6 @@ public class EmployeeBook {
     public EmployeeBook(){
         this.employee = new Employee[10];
 
-
-        employee[0] = new Employee(1, "Иванов", "Иван", "Иванович", 60_000);
-        employee[1] = new Employee(2, "Иванов", "Евгений", "Анатольевич", 65_000);
-        employee[2] = new Employee(3, "Иванов", "Степан", "Сергеевич", 70_000);
-        employee[3] = new Employee(4, "Иванов", "Игнат", "Андреевич", 75_000);
-        employee[4] = new Employee(5, "Иванов", "Аркадий", "Семенович", 80_000);
-        employee[5] = new Employee(1, "Иванов", "Станеслав", "Аркадьевич", 70_000);
     }
 
     public void printAllEmployees(){
@@ -114,11 +107,10 @@ public class EmployeeBook {
             if (employee[i] == null) {
                 continue;
             }
-            if (department == employee[i].getDepartment()) {
-                if (employee[i].getSalary() < minSalary) {
-                    minSalary = employee[i].getSalary();
-                    minIdentifier = i;
-                }
+            if (department == employee[i].getDepartment() && employee[i].getSalary() < minSalary) {
+                minSalary = employee[i].getSalary();
+                minIdentifier = i;
+
             }
         }
         return employee[minIdentifier];
@@ -130,12 +122,11 @@ public class EmployeeBook {
             if (employee[i] == null) {
                 continue;
             }
-            if (department == employee[i].getDepartment()) {
-                if (employee[i].getSalary() > maxSalary) {
-                    maxSalary = employee[i].getSalary();
-                    maxIdentifier = i;
+            if (department == employee[i].getDepartment() && employee[i].getSalary() > maxSalary) {
+                maxSalary = employee[i].getSalary();
+                maxIdentifier = i;
 
-                }
+
             }
         }
         return employee[maxIdentifier];
@@ -165,7 +156,11 @@ public class EmployeeBook {
                 numOfPeopleInTheDepartment++;
             }
         }
-        return salaryAmountByDepartment / numOfPeopleInTheDepartment;
+        if (salaryAmountByDepartment == 0 || numOfPeopleInTheDepartment == 0){
+            return 0;
+        }else {
+            return salaryAmountByDepartment / numOfPeopleInTheDepartment;
+        }
     }
     public void salaryIndexationInTheDepartment(int department, int percent){
         for (int i = 0; i < employee.length; i++) {
@@ -213,21 +208,23 @@ public class EmployeeBook {
             }
         }
     }
-    public boolean addEmployee(int department, String familName, String name, String surname, int salary){
-        boolean flag = true;
+    public boolean addEmployee(Employee newEmployee){
+        boolean flag = false;
         for (int i = 0; i < employee.length; i++) {
-            if (Employee.total >= employee.length){
-                System.out.println("Нельзя добавить сотрудника, закончилось место");
-                flag = false;
-                break;
-            }
             if(employee[i] == null){
-                Employee newEmployee = new Employee(department, familName,name, surname, salary);
                 employee[i] = newEmployee;
+                flag = true;
                 break;
             }
+
         }
-        return flag;
+        if(flag){
+            return flag;
+        }else {
+            System.out.println("Мест для сотрудника не нашлось");
+            return flag;
+        }
+
     }
     public void deletingAnEmployee(int id){
         for (int i = 0; i < employee.length; i++) {
@@ -241,21 +238,17 @@ public class EmployeeBook {
         }
     }
     public Employee employeeSearchById(int id){
-        int searchId = 0;
         for (int i = 0; i < employee.length; i++) {
             if (employee[i] == null) {
                 continue;
             }
             if (employee[i].getId() == id) {
-                searchId = i;
+                return employee[i];
             }
         }
-        if(searchId == 0){
-            System.out.println("Такого id не существует");
-            return employee[searchId];
-        }else {
-            return employee[searchId];
-        }
+        return null;
+
+
 
     }
     
